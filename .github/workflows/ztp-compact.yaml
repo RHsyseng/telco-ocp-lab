@@ -23,12 +23,16 @@ jobs:
       - name: Clean Virtual Infra
         run: |
           ./sinfra --clean -auto-timeout 0s --continue-on-error
+        env:
+          HOME: /root
       - name: Setup Virtual Infra - ${{ runner.name }}
         run: |
           echo '${{ secrets.PULL_SECRET }}' > .pull-secret.json
           echo '${{ secrets.WG_AUTH }}' > .wg-auth
           ./sinfra --setupInfra -auto-timeout 0s
           virsh dumpxml 5gc-w0|grep emulator
+        env:
+          HOME: /root
       - name: Reserve Runner
         run: |
           podman exec workstation bash -ce '
