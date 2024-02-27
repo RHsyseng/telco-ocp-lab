@@ -6,8 +6,8 @@ on:  # yamllint disable-line rule:truthy
     branches:
       - dev
       - main
-  schedule:
-    - cron: '0 */4 * * *'
+  # schedule:
+  #   - cron: '0 */4 * * *'
   workflow_dispatch:
 jobs:
   stage0:
@@ -33,11 +33,11 @@ jobs:
           virsh dumpxml 5gc-w0|grep emulator
         env:
           HOME: /root
-      - name: Reserve Runner
-        run: |
-          podman exec workstation bash -ce '
-            GITHUB_TOKEN='${{ secrets.GH_TOKEN }}' ./bin/label-runner.sh ${{ runner.name }} -green +taken -ready
-          '
+      # - name: Reserve Runner
+      #   run: |
+      #     podman exec workstation bash -ce '
+      #       GITHUB_TOKEN='${{ secrets.GH_TOKEN }}' ./bin/label-runner.sh ${{ runner.name }} -green +taken -ready
+          
   stage1:
     name: Deploy SNO Cluster - ${{needs.stage0.outputs.RUNNER}}
     runs-on: ${{needs.stage0.outputs.RUNNER}}
