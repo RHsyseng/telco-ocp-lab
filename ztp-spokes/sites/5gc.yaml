@@ -235,6 +235,9 @@ spec:
                       - ip: 10.10.10.120
                         prefix-length: 24
                     dhcp: false
+                  ethtool:
+                    feature:
+                      gro: off
                 - <<: *bond0-11
                   ipv4:
                     enabled: true
