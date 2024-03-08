@@ -237,7 +237,7 @@ spec:
                     dhcp: false
                   ethtool:
                     feature:
-                      gro: off
+                      rx-gro: true
                 - <<: *bond0-11
                   ipv4:
                     enabled: true
