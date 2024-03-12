@@ -44,11 +44,11 @@ jobs:
     needs: [stage0]
     if: needs.stage0.result == 'success'
     steps:
-      - name: Deploy SNO using agent-based - OCP 4.14.6 / gitops 1.9
+      - name: Deploy SNO using agent-based - OCP 4.14.10 / gitops 1.9
         timeout-minutes: 40
         run: |
           podman exec workstation bash -ce '
-            curl https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.14.6/openshift-install-linux-4.14.6.tar.gz -o openshift-install-linux.tar.gz
+            curl https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.14.10/openshift-install-linux-4.14.10.tar.gz -o openshift-install-linux.tar.gz
             tar xvfz openshift-install-linux.tar.gz
             mv openshift-install /usr/bin/
             chmod +x /usr/bin/openshift-install
@@ -233,7 +233,7 @@ jobs:
       #     podman exec workstation bash -ce '
       #       GITHUB_TOKEN='${{ secrets.GH_TOKEN }}' ./bin/label-runner.sh ${{ runner.name }} +ready -taken +green
       #       pkill ping || true
-          '
+      #    '
   on-fail:
     name: Release Runner
     runs-on: ${{needs.stage0.outputs.RUNNER}}
