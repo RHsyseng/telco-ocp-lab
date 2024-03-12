@@ -228,11 +228,11 @@ jobs:
             oc get nodes || true
             oc get pods || true
           '
-      - name: Mark Runner
-        run: |
-          podman exec workstation bash -ce '
-            GITHUB_TOKEN='${{ secrets.GH_TOKEN }}' ./bin/label-runner.sh ${{ runner.name }} +ready -taken +green
-            pkill ping || true
+      # - name: Mark Runner
+      #   run: |
+      #     podman exec workstation bash -ce '
+      #       GITHUB_TOKEN='${{ secrets.GH_TOKEN }}' ./bin/label-runner.sh ${{ runner.name }} +ready -taken +green
+      #       pkill ping || true
           '
   on-fail:
     name: Release Runner
@@ -250,7 +250,7 @@ jobs:
             oc get co
             pkill liveping || true
 
-            GITHUB_TOKEN='${{ secrets.GH_TOKEN }}' ./bin/label-runner.sh ${{ runner.name }} +green -taken
+            # GITHUB_TOKEN='${{ secrets.GH_TOKEN }}' ./bin/label-runner.sh ${{ runner.name }} +green -taken
           '
           #oc api-resources --verbs=list  -o name | xargs -t -n 1 -I{} sh -c 'oc get --show-kind --ignore-not-found -A -o yaml "$1" > "$1.yaml"' -- {}
 
